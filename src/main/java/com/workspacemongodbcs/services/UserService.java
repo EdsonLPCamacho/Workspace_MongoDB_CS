@@ -25,6 +25,7 @@ public class UserService {
         return user.orElseThrow(() -> new NotFoundException("User not found!"));
     }
     
+    //Insert User
     public User insert(User obj) {
     	return repository.insert(obj);
     }
@@ -36,7 +37,22 @@ public class UserService {
     	
     }
     
-    public User fromDTO(UserDTO objDto) {
+    // Update User
+    public User update(User obj) {
+        User existingUser = repository.findById(obj.getId()).orElseThrow(() -> new 
+        		RuntimeException("User not found"));
+        updateData(existingUser, obj);
+        return repository.save(existingUser);
+    }
+    
+    //Helper method to update User
+    private void updateData(User existingUser, User newUser) {
+    	existingUser.setName(newUser.getName());
+    	existingUser.setEmail(newUser.getEmail());
+		
+	}
+
+	public User fromDTO(UserDTO objDto) {
     	return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
     }
 }
