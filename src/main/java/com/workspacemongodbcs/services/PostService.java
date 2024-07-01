@@ -20,10 +20,8 @@ public class PostService {
     }
 
     public Post findById(String id) {
-        Optional<Post> post = repository.findById(id);
-        return post.orElseThrow(() -> new NotFoundException("Post not found!"));
+        Optional<Post> obj = repository.findById(id);
+        return obj.orElseThrow(() -> new NotFoundException("Post not found!"));
     }
-
-    
   
 }
