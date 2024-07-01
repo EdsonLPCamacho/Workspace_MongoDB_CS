@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.workspacemongodbcs.DTO.UserDTO;
+import com.workspacemongodbcs.domain.Post;
 import com.workspacemongodbcs.domain.User;
 import com.workspacemongodbcs.services.UserService;
 
@@ -67,4 +68,11 @@ public class UserResources {
 	        User updateUser = service.update(obj); 
 	        return ResponseEntity.ok().body(updateUser); 
 	    }
+	   
+		@GetMapping("/{id}/posts")
+		public ResponseEntity<List<Post>> findPosts(@PathVariable String id){	
+			User obj = service.findById(id);		
+			return ResponseEntity.ok().body(obj.getPosts());
+		}
+		
 }
